@@ -32,7 +32,7 @@ step_adder = EmrAddStepsOperator(
                 'spark-submit',
                 '--deploy-mode',
                 'cluster',
-                's3://pyspark-scripts-for-projects/food-delivery/pyspark-scripts/pyspark_job.py',
+                's3://pyspark-scripts-for-projects-fn/project-food-delivery/pyspark-scripts/pyspark_job.py',
             ],
         },
     }],
