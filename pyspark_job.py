@@ -44,7 +44,7 @@ df_transformed.write.csv(output_s3_path, mode="overwrite")
 
 username = 'awsuser'
 password ='AWSuser12'
-jdbc_url = f"jdbc:redshift://redshift-cluster-spark-load.cyy1gmfmb9hv.us-east-1.redshift.amazonaws.com:5439/dev?user={username}&password='{password}'"
+jdbc_url = f"jdbc:redshift://redshift-cluster-spark-load.cyy1gmfmb9hv.us-east-1.redshift.amazonaws.com:5439/dev?user={username}&password={password}"
 aws_iam_role = "arn:aws:iam::590183810146:role/redshift-role"
 temp_dir="s3://food-delivery-bucket-fn/temp-folder/"
 target_table = 'food_delivery'
