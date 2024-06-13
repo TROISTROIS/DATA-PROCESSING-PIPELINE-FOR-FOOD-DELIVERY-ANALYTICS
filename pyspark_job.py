@@ -47,7 +47,7 @@ password ='AWSuser12'
 jdbc_url = f"jdbc:redshift://redshift-cluster-spark-load.cyy1gmfmb9hv.us-east-1.redshift.amazonaws.com:5439/dev?user={username}&password={password}"
 aws_iam_role = "arn:aws:iam::590183810146:role/redshift-role"
 temp_dir="s3://food-delivery-bucket-fn/temp-folder/"
-target_table = 'food_delivery'
+target_table = 'tb_food_delivery'
 table_schema = "order_id string, customer_id string, restaurant_id string, order_time timestamp, customer_location string, restaurant_location string, order_value double, rating double, delivery_time timestamp"
 create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {target_table} ({table_schema})
