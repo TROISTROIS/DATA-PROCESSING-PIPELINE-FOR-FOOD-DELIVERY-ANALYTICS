@@ -39,16 +39,16 @@ df_transformed = df_transformed.drop("Difference_In_Seconds")
 df_transformed.show(5)
 
         # Writing the transformed data into a staging area in Amazon S3
-output_s3_path = 's3://food-delivery-bucket-fn/output_files/transformed_file.csv'
+output_s3_path = 's3://food-delivery-bucket-fn/output_files/'
 df_transformed.write.csv(output_s3_path, mode="overwrite")
 
 username = 'awsuser'
 password ='AWSuser12'
-jdbc_url = f"jdbc:redshift://redshift-cluster-spark-load.cyy1gmfmb9hv.us-east-1.redshift.amazonaws.com:5439/dev?user={username}&password={password}"
+jdbc_url = f"jdbc:redshift://redshift-cluster-spark-load.cyy1gmfmb9hv.us-east-1.redshift.amazonaws.com:5439/dev?user={username}&password='{password}'"
 aws_iam_role = "arn:aws:iam::590183810146:role/redshift-role"
 temp_dir="s3://food-delivery-bucket-fn/temp-folder/"
 target_table = 'food_delivery'
-table_schema = "order_id string, customer_id string, restaurant_id string, order_time timestamp, customer_location string, restaurant_location string, order_value double, rating double, delivery_time timestamp"
+table_schema = "order_id VARCHAR(20), customer_id VARCHAR(10), restaurant_id VARCHAR(10), order_time timestamp, customer_location VARCHAR(200), restaurant_location VARCHAR(200), order_value double, rating double, delivery_time timestamp"
 create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {target_table} ({table_schema})
     USING io.github.spark_redshift_community.spark.redshift
@@ -59,7 +59,6 @@ create_table_query = f"""
         aws_iam_role '{aws_iam_role}'
     )
 """
-
 
 # Now you can execute the create_table_query using Spark SQL
 spark.sql(create_table_query).show()
