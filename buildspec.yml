@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo "Copying files to the respective S3 locations"
+  build:
+    commands:
+      - echo "copying csv file to s3 bucket"
+      - aws s3 cp food_delivery_data.csv s3://food-delivery-bucket-fn/food_delivery_data/
+      - echo "copying airflow_dag to dag folder"
+      - aws s3 cp airflow_dag.py s3://food-delivery-bucket-airflow-fn/dags/
+      - echo "copying requirements file to s3 bucket"
+      - aws s3 cp requirements.txt s3://food-delivery-bucket-airflow-fn/
+      - echo "copying pyspark script to s3 folder"
+      - aws s3 cp pyspark_job.py s3://pyspark-scripts-for-projects-fn/project-food-delivery/pyspark-scripts/
+  post_build:
+    commands:
+      - echo "Deployment complete!"
